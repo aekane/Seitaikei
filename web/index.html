@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>生態系</title>
+
+        <style>
+            body { 
+                background-color: black;
+                color: white;
+                font-size: x-large;
+            }
+            div { 
+                max-width: 70%;
+                margin: auto;
+                border: 4px solid white;
+                border-radius: 4px;
+            }
+            h2 {
+                padding: 4px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        {{ range . }}
+        {{ with .stats }}
+        <div>
+        <table style="margin: auto;">
+            <tr>
+                <th>Servers</th>
+                <th>Status</th>
+            </tr>
+        {{ range .}}
+            <tr>
+                <td> {{ .ip }} </td>
+                <td> {{ .code }} </td>
+            </tr>
+        {{ end }}
+        </table>
+        </div><br>
+        {{ end }}
+
+        {{ with .players }}
+        <div>
+            <h3 style="text-align:center;"> ATM8 <br>{{ .online }}/{{ .max }} </h3>
+        {{ range .sample}}
+        <p style="padding-left: 10%;"> {{ .name }} </p>
+        {{ end }}
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <p style="position: absolute; bottom: 0;"> {{ . }} </p>
+
+        <script>
+            setTimeout(function(){
+                location.reload();
+            }, 1000);
+        </script>
+    </body>
+</html>
