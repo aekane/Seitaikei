@@ -16,12 +16,13 @@ import (
 )
 
 var data = map[string][]byte{}
+var endpoints = []string{}
 
 func indexHandle(w http.ResponseWriter, r *http.Request) {
 	var jdata []interface{}
-	for _, k := range data {
+	for _, k := range endpoints {
 		var tmp interface{}
-		json.Unmarshal(k, &tmp)
+		json.Unmarshal(data[k], &tmp)
 		jdata = append(jdata, tmp)
 	}
 	//w.Write([]byte(tmp))
@@ -39,6 +40,7 @@ func apiHandle(w http.ResponseWriter, r *http.Request) {
 
 	if _, ok := data[endpnt]; !ok {
 		log.Printf("Got data at api enpoint: %q", endpnt)
+		endpoints = append(endpoints, endpnt)
 	}
 	data[endpnt], _ = io.ReadAll(r.Body)
 }
